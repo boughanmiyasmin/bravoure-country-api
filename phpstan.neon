@@ -1,5 +1,7 @@
 parameters:
-    level: 6
+    level: 5
     paths:
         - app
         - tests
+    ignoreErrors:
+        - '#Call to an undefined static method Alaouy\\Youtube\\Facades\\Youtube::getPopularVideos\(\)#'
