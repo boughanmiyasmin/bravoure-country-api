@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Log;
+use Ramsey\Uuid\Uuid;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -26,5 +28,27 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+    public function render($request, Throwable $exception)
+    {
+        $errorCode = Uuid::uuid4()->toString();
+
+        Log::error(
+            $exception->getMessage(),
+            [
+                'request' => $request,
+                'exception' => $exception,
+                'errorCode' => $errorCode,
+            ]
+        );
+
+        //Only API Exceptions or JSON will be treated this way
+        if ($request->is('api/*') || $request->wantsJson()) {
+            $exceptionFactory = new APIExceptionFactory();
+
+            return $exceptionFactory->buildExceptionErrorResponse($exception, $errorCode);
+        }
+
+        return parent::render($request, $exception);
     }
 }
