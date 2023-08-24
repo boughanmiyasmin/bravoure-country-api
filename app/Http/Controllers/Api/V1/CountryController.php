@@ -27,14 +27,14 @@ class CountryController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/countries/youtube/{country_id}",
+     *      path="api/1.0/countries/youtube/{country_id}",
      *      operationId="getYoutubeVideo",
-     *      tags={"YourController"},
+     *      tags={"CountryController"},
      *      summary="Get YouTube Video Data",
      *      description="Fetches YouTube video data based on country ID.",
      *      @OA\Parameter(
      *          name="country_id",
-     *          in="query",
+     *          in="path",
      *          required=true,
      *          @OA\Schema(
      *              type="string",
@@ -62,6 +62,46 @@ class CountryController extends Controller
             [],
             0,
             false
+        );
+    }
+
+    /**
+     * @OA\Get(
+     *      path="/api/1.0/countries/wikipedia/{country_id}",
+     *      operationId="getWikiText",
+     *      tags={"CountryController"},
+     *      summary="Get Wiki Text Data",
+     *      description="Fetches Wikipedia text data based on country name.",
+     *      @OA\Parameter(
+     *          name="country_id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="string",
+     *          ),
+     *          description="Country name"
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful response",
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Validation error",
+     *      ),
+     * )
+     */
+    public function getWikiText(string $country): JsonResponse
+    {
+        $this->validateRequest($country, CountryValidator::getCountryRules());
+        $response = $this->countryService->getWikiData($country);
+
+        return new JsonResponse(
+            $response,
+            Response::HTTP_OK,
+            [],
+            0,
+            true
         );
     }
 }
