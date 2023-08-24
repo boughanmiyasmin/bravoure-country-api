@@ -2,18 +2,18 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Bravoure-country-api",
-        "description": "Description of your API",
+        "description": "countries data",
         "contact": {
             "name": "Yasmin Boughanmi",
             "email": "yasminboghanmi@outlook.com"
         },
-        "version": "1.0.0"
+        "version": "1.0"
     },
     "paths": {
-        "/countries/youtube/{country_id}": {
+        "api/1.0/countries/youtube/{country_id}": {
             "get": {
                 "tags": [
-                    "YourController"
+                    "CountryController"
                 ],
                 "summary": "Get YouTube Video Data",
                 "description": "Fetches YouTube video data based on country ID.",
@@ -21,8 +21,37 @@
                 "parameters": [
                     {
                         "name": "country_id",
-                        "in": "query",
+                        "in": "path",
                         "description": "Country ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/1.0/countries/wikipedia/{country_id}": {
+            "get": {
+                "tags": [
+                    "CountryController"
+                ],
+                "summary": "Get Wiki Text Data",
+                "description": "Fetches Wikipedia text data based on country name.",
+                "operationId": "getWikiText",
+                "parameters": [
+                    {
+                        "name": "country_id",
+                        "in": "path",
+                        "description": "Country name",
                         "required": true,
                         "schema": {
                             "type": "string"
