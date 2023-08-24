@@ -17,6 +17,10 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'api_latest' => '1',
+    'api_prefix' => 'api',
+    'api_version' => '1.0',
+    'service_namespace' => 'BRAVOURE-COUNTRY-API',
 
     /*
     |--------------------------------------------------------------------------
