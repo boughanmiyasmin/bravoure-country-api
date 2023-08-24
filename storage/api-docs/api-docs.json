@@ -1,0 +1,43 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Bravoure-country-api",
+        "description": "Description of your API",
+        "contact": {
+            "name": "Yasmin Boughanmi",
+            "email": "yasminboghanmi@outlook.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/countries/youtube/{country_id}": {
+            "get": {
+                "tags": [
+                    "YourController"
+                ],
+                "summary": "Get YouTube Video Data",
+                "description": "Fetches YouTube video data based on country ID.",
+                "operationId": "getYoutubeVideo",
+                "parameters": [
+                    {
+                        "name": "country_id",
+                        "in": "query",
+                        "description": "Country ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        }
+    }
+}
