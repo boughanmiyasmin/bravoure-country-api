@@ -22,13 +22,13 @@ use Illuminate\Http\Response;
 class CountryController extends Controller
 {
     public function __construct(
-        private CountryService $countryService)
-    {
+        private CountryService $countryService
+    ) {
     }
 
     /**
      * @OA\Get(
-     *      path="api/1.0/countries/youtube/{country_id}",
+     *      path="/api/1.0/countries/youtube/{country_id}",
      *      operationId="getYoutubeVideo",
      *      tags={"CountryController"},
      *      summary="Get YouTube Video Data",
@@ -106,6 +106,46 @@ class CountryController extends Controller
         );
     }
 
+    /**
+     * @OA\Get(
+     *      path="/countries",
+     *      operationId="getAllCountries",
+     *      tags={"CountryController"},
+     *      summary="Get All Countries",
+     *      description="Fetches a list of all countries.",
+     *      @OA\Parameter(
+     *          name="filters",
+     *          in="query",
+     *          description="To filter, add the query parameter `filter[<field name>]=<field value>`",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="string"
+     *          ),
+     *      ),
+     *      @OA\Parameter(
+     *          name="limit",
+     *          in="query",
+     *          description="Number of countries per page (default: 10).",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="integer",
+     *          ),
+     *      ),
+     *      @OA\Parameter(
+     *          name="page",
+     *          in="query",
+     *          description="Page number (default: 1).",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="integer",
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful response",
+     *      ),
+     * )
+     */
     public function getCountries(Request $request)
     {
         $filters = $request->get('filter') ?? [];

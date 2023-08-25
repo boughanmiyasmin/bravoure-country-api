@@ -10,7 +10,7 @@
         "version": "1.0"
     },
     "paths": {
-        "api/1.0/countries/youtube/{country_id}": {
+        "/api/1.0/countries/youtube/{country_id}": {
             "get": {
                 "tags": [
                     "CountryController"
@@ -64,6 +64,50 @@
                     },
                     "422": {
                         "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/countries": {
+            "get": {
+                "tags": [
+                    "CountryController"
+                ],
+                "summary": "Get All Countries",
+                "description": "Fetches a list of all countries.",
+                "operationId": "getAllCountries",
+                "parameters": [
+                    {
+                        "name": "filters",
+                        "in": "query",
+                        "description": "To filter, add the query parameter `filter[<field name>]=<field value>`",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Number of countries per page (default: 10).",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number (default: 1).",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
                     }
                 }
             }
