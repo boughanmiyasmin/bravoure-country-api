@@ -39,14 +39,14 @@ class CountryApiTest extends TestCase
     {
         $response = $this->get(route('countries.get.video', ['country_id' => 'invalid_id']));
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertStatus(Response::HTTP_BAD_REQUEST);
     }
 
     public function testGetWikiTextEndpointFailsWithInvalidCountryId()
     {
         $response = $this->get(route('countries.get.text', ['country_id' => 'invalid_id']));
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertStatus(Response::HTTP_BAD_REQUEST);
     }
 
 }
