@@ -18,4 +18,5 @@ Route::middleware('api_version:1.0')->group(function () {
 
     Route::get('countries/youtube/{country_id}', [CountryController::class, 'getYoutubeVideo'])->name('countries.get.video');
     Route::get('countries/wikipedia/{country_id}', [CountryController::class, 'getWikiText'])->name('countries.get.text');
+    Route::get('countries', [CountryController::class, 'getCountries'])->name('countries.get');
 });
