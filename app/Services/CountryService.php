@@ -19,8 +19,7 @@ class CountryService
         private WikiCache $wikiCache,
         private CountryCache $countryCache,
         private WikipediaService $wikipediaService
-    )
-    {
+    ) {
     }
 
     public function getYoutubeData(string $id): array
@@ -47,7 +46,6 @@ class CountryService
         }
 
         return $wikiResponse;
-
     }
 
     private function findWikiText(string $id): string
@@ -62,7 +60,7 @@ class CountryService
     {
         $lastUpdate = $this->countryCache->getCache();
         if (!isset($lastUpdate)) {
-            $this->createCountries();
+            $lastUpdate = $this->createCountries();
         }
 
         if ($lastUpdate->gt(Carbon::now()->subMinutes(10))) {
@@ -70,7 +68,6 @@ class CountryService
         }
 
         $this->updateCountries();
-
         return $this->countryRepository->findCountries($filters, $limit, $page);
     }
 
@@ -84,13 +81,15 @@ class CountryService
         $this->countryCache->addCache(Carbon::now());
     }
 
-    private function createCountries(): void
+    private function createCountries(): Carbon
     {
         foreach (Countries::toArray() as $id) {
             $data = $this->getData($id);
             $this->countryRepository->createCountry($data->all());
         }
         $this->countryCache->addCache(Carbon::now());
+
+        return Carbon::now();
     }
 
     private function getData(string $id): CountryDTO
@@ -101,5 +100,4 @@ class CountryService
             $this->getWikiData($id)
         );
     }
-
 }
