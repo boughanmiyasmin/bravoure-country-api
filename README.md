@@ -54,7 +54,7 @@ To set up the Bravoure Country API using Laravel Sail:
 6. Run migration:
    ```bash
    ./vendor/bin/sail artisan migrate
-##Usage
+## Usage
 
 The API provides three main endpoints for fetching data. Here's how to use them:
 
@@ -70,10 +70,10 @@ The API provides three main endpoints for fetching data. Here's how to use them:
 
   `GET /api/countries`
 
-##API Endpoints
+## API Endpoints
 
 For detailed information about the API endpoints, request parameters, and response formats, please refer to the API Documentation (/api/documentation) file.
 
-##License
+## License
 
 This project is licensed under the MIT License (LICENSE).
