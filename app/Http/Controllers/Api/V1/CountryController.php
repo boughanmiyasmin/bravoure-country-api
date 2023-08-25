@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Services\CountryService;
 use App\Validators\CountryValidator;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 /**
@@ -102,6 +103,22 @@ class CountryController extends Controller
             [],
             0,
             true
+        );
+    }
+
+    public function getCountries(Request $request)
+    {
+        $filters = $request->get('filter') ?? [];
+        $limit = (int)($request->query->get('limit') ?? 100);
+        $page = (int)($request->page ?? 1);
+
+        $response = $this->countryService->getCountries($filters, $limit, $page);
+
+        return new JsonResponse(
+            $response,
+            Response::HTTP_OK,
+            [],
+            0
         );
     }
 }
